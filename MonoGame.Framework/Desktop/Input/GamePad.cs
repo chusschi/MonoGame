@@ -81,6 +81,88 @@ namespace Microsoft.Xna.Framework.Input
 				PadConfig pc = new PadConfig(Sdl.SDL_JoystickName(x), x);
 				devices[x] = Sdl.SDL_JoystickOpen(pc.Index);
 
+#if MONOMAC
+				pc.Button_A.ID = 11;
+				pc.Button_A.Type = InputType.Button;
+
+				pc.Button_B.ID = 12;
+				pc.Button_B.Type = InputType.Button;
+
+				pc.Button_X.ID = 13;
+				pc.Button_X.Type = InputType.Button;
+
+				pc.Button_Y.ID = 14;
+				pc.Button_Y.Type = InputType.Button;
+
+				pc.Button_LB.ID = 8;
+				pc.Button_LB.Type = InputType.Button;
+
+				pc.Button_RB.ID = 9;
+				pc.Button_RB.Type = InputType.Button;
+
+				pc.Button_Back.ID = 5;
+				pc.Button_Back.Type = InputType.Button;
+
+				pc.Button_Start.ID = 4;
+				pc.Button_Start.Type = InputType.Button;
+
+				pc.LeftStick.Press.ID = 6;
+				pc.LeftStick.Press.Type = InputType.Button;
+
+				pc.RightStick.Press.ID = 7;
+				pc.RightStick.Press.Type = InputType.Button;
+
+				pc.LeftStick.X.Negative.ID = 0;
+				pc.LeftStick.X.Negative.Type = InputType.Axis;
+				pc.LeftStick.X.Negative.Negative = true;
+
+				pc.LeftStick.X.Positive.ID = 0;
+				pc.LeftStick.X.Positive.Type = InputType.Axis;
+				pc.LeftStick.X.Positive.Negative = false;
+
+				pc.LeftStick.Y.Negative.ID = 1;
+				pc.LeftStick.Y.Negative.Type = InputType.Axis;
+				pc.LeftStick.Y.Negative.Negative = true;
+
+				pc.LeftStick.Y.Positive.ID = 1;
+				pc.LeftStick.Y.Positive.Type = InputType.Axis;
+				pc.LeftStick.Y.Positive.Negative = false;
+
+				pc.RightStick.X.Negative.ID = 2;
+				pc.RightStick.X.Negative.Type = InputType.Axis;
+				pc.RightStick.X.Negative.Negative = true;
+
+				pc.RightStick.X.Positive.ID = 2;
+				pc.RightStick.X.Positive.Type = InputType.Axis;
+				pc.RightStick.X.Positive.Negative = false;
+
+				pc.RightStick.Y.Negative.ID = 3;
+				pc.RightStick.Y.Negative.Type = InputType.Axis;
+				pc.RightStick.Y.Negative.Negative = true;
+
+				pc.RightStick.Y.Positive.ID = 3;
+				pc.RightStick.Y.Positive.Type = InputType.Axis;
+				pc.RightStick.Y.Positive.Negative = false;
+
+				pc.LeftTrigger.ID = 4;
+				pc.LeftTrigger.Type = InputType.Axis;
+
+				pc.RightTrigger.ID = 5;
+				pc.RightTrigger.Type = InputType.Axis;
+
+				pc.Dpad.Up.ID = 0;
+				pc.Dpad.Up.Type = InputType.Button;
+
+				pc.Dpad.Down.ID = 1;
+				pc.Dpad.Down.Type = InputType.Button;
+
+				pc.Dpad.Left.ID = 2;
+				pc.Dpad.Left.Type = InputType.Button;
+
+				pc.Dpad.Right.ID = 3;
+				pc.Dpad.Right.Type = InputType.Button;
+#elif
+
 				pc.Button_A.ID = 0;
 				pc.Button_A.Type = InputType.Button;
 
@@ -166,6 +248,7 @@ namespace Microsoft.Xna.Framework.Input
 				// Suggestion: Xbox Guide button <=> BigButton
 				//pc.BigButton.ID = 8;
 				//pc.BigButton.Type = InputType.Button;
+#endif
 
 #if DEBUG
 				int numbuttons = Sdl.SDL_JoystickNumButtons(devices[x]);
@@ -210,9 +293,9 @@ namespace Microsoft.Xna.Framework.Input
          	    Joystick.Init ();
 				sdl = true;
 			}
-			catch (Exception) 
+			catch (Exception e) 
             {
-
+				System.Diagnostics.Debug.WriteLine (e.Message);
 			}
         	for (int i = 0; i < 4; i++)
             {
@@ -308,20 +391,58 @@ namespace Microsoft.Xna.Framework.Input
 
 			return b;
 		}
+
+#if MONOMAC
+		static float GetSDLValue(IntPtr device_ptr, int value_id)
+		{
+			return Tao.Sdl.Sdl.SDL_JoystickGetAxis(device_ptr, value_id);
+		}
+
+		static float ScaleDeadZone(float value, float deadzone)
+		{
+			// this maps values in the dead zone to 0 and all others from 0 .. 1.0
+
+			if (value > 0)
+				value = MathHelper.Clamp(value, deadzone, 1);
+			else
+				value = MathHelper.Clamp(value, -1, -deadzone);
+
+			value -= (value > 0 ? deadzone : -deadzone);
+
+			value /= (1 - deadzone);
+
+			return value;
+		}
+#endif
 		
         static GamePadState ReadState(PlayerIndex index, GamePadDeadZone deadZone)
         {
+
             const float DeadZoneSize = 0.27f;
             IntPtr device = GetDevice(index);
             PadConfig c = GetConfig(index);
             if (device == IntPtr.Zero || c == null)
                 return GamePadState.InitializedState;
 
+#if MONOMAC
+			float left_x_axis = ScaleDeadZone(MathHelper.Clamp(GetSDLValue(device, c.LeftStick.X.Positive.ID) / 0X7FFF, -1, 1), DeadZoneSize);
+			float left_y_axis = -ScaleDeadZone(MathHelper.Clamp(GetSDLValue(device, c.LeftStick.Y.Positive.ID) / 0X7FFF, -1, 1), DeadZoneSize);
+			float right_x_axis = ScaleDeadZone(MathHelper.Clamp(GetSDLValue(device, c.RightStick.X.Positive.ID) / 0X7FFF, -1, 1), DeadZoneSize);
+			float right_y_axis = -ScaleDeadZone(MathHelper.Clamp(GetSDLValue(device, c.RightStick.Y.Positive.ID) / 0X7FFF, -1, 1), DeadZoneSize);
+
+			GamePadThumbSticks sticks = new GamePadThumbSticks(new Vector2(left_x_axis, left_y_axis), new Vector2(right_x_axis, right_y_axis));
+
+			float left_trigger = (GetSDLValue(device, c.LeftTrigger.ID)+0x8000)/0XFFFF;
+			float right_trigger = (GetSDLValue(device, c.RightTrigger.ID)+0x8000)/0XFFFF;
+
+			GamePadTriggers triggers = new GamePadTriggers(left_trigger, right_trigger);
+#elif
             var leftStick = c.LeftStick.ReadAxisPair(device);
             var rightStick = c.RightStick.ReadAxisPair(device);
             GamePadThumbSticks sticks = new GamePadThumbSticks(new Vector2(leftStick.X, leftStick.Y), new Vector2(rightStick.X, rightStick.Y));
             sticks.ApplyDeadZone(deadZone, DeadZoneSize);
             GamePadTriggers triggers = new GamePadTriggers(c.LeftTrigger.ReadFloat(device), c.RightTrigger.ReadFloat(device));
+#endif
 			Buttons buttonState = ReadButtons(device, c, DeadZoneSize);
 			buttonState |= StickToButtons(sticks.Left, Buttons.LeftThumbstickLeft, Buttons.LeftThumbstickRight, Buttons.LeftThumbstickUp, Buttons.LeftThumbstickDown, DeadZoneSize);
 			buttonState |= StickToButtons(sticks.Right, Buttons.RightThumbstickLeft, Buttons.RightThumbstickRight, Buttons.RightThumbstickUp, Buttons.RightThumbstickDown, DeadZoneSize);
