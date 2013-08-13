@@ -16,7 +16,7 @@
     <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>False</Optimize>
-    <OutputPath>bin\MacOS\Debug</OutputPath>
+    <OutputPath>..\..\svn\Quasar\Lib\MonoGame\Mac\Debug</OutputPath>
     <DefineConstants>DEBUG;MONOMAC;OPENGL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,7 +31,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>False</Optimize>
-    <OutputPath>bin\MacOS\Release</OutputPath>
+    <OutputPath>..\..\svn\Quasar\Lib\MonoGame\Mac\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
@@ -46,7 +46,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Distribution|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>False</Optimize>
-    <OutputPath>bin\MacOS\Distribution</OutputPath>
+    <OutputPath>..\..\svn\Quasar\Lib\MonoGame\Mac\Distribution</OutputPath>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <DefineConstants>MONOMAC;OPENGL</DefineConstants>
