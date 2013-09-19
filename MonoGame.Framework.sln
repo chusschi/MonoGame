@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lidgren.Network.Windows", "ThirdParty\Lidgren.Network\Lidgren.Network.Windows.csproj", "{AE483C29-042E-4226-BA52-D247CE7676DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGame.Framework.Windows", "MonoGame.Framework\MonoGame.Framework.Windows.csproj", "{7DE47032-A904-4C29-BD22-2D235E8D91BA}"
@@ -29,24 +29,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Release|ARM.ActiveCfg = Release|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Release|x64.ActiveCfg = Release|Any CPU
-		{AEA9E92A-C99E-4161-8D54-7AC1AE4B3601}.Release|x86.ActiveCfg = Release|Any CPU
 		{AE483C29-042E-4226-BA52-D247CE7676DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AE483C29-042E-4226-BA52-D247CE7676DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE483C29-042E-4226-BA52-D247CE7676DA}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -65,6 +47,7 @@ Global
 		{AE483C29-042E-4226-BA52-D247CE7676DA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{AE483C29-042E-4226-BA52-D247CE7676DA}.Release|x64.ActiveCfg = Release|Any CPU
 		{AE483C29-042E-4226-BA52-D247CE7676DA}.Release|x86.ActiveCfg = Release|Any CPU
+		{AE483C29-042E-4226-BA52-D247CE7676DA}.Release|x86.Build.0 = Release|Any CPU
 		{7DE47032-A904-4C29-BD22-2D235E8D91BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7DE47032-A904-4C29-BD22-2D235E8D91BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DE47032-A904-4C29-BD22-2D235E8D91BA}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -83,6 +66,7 @@ Global
 		{7DE47032-A904-4C29-BD22-2D235E8D91BA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7DE47032-A904-4C29-BD22-2D235E8D91BA}.Release|x64.ActiveCfg = Release|Any CPU
 		{7DE47032-A904-4C29-BD22-2D235E8D91BA}.Release|x86.ActiveCfg = Release|Any CPU
+		{7DE47032-A904-4C29-BD22-2D235E8D91BA}.Release|x86.Build.0 = Release|Any CPU
 		{0518563C-ACCA-4A14-8C5D-DDBE93E2605F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0518563C-ACCA-4A14-8C5D-DDBE93E2605F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0518563C-ACCA-4A14-8C5D-DDBE93E2605F}.Debug|ARM.ActiveCfg = Debug|ARM
@@ -126,7 +110,6 @@ Global
 		{77EBD3FC-0D63-4FAB-8DB9-29B3528184B3}.Release|Mixed Platforms.Build.0 = Release|x86
 		{77EBD3FC-0D63-4FAB-8DB9-29B3528184B3}.Release|x64.ActiveCfg = Release|Any CPU
 		{77EBD3FC-0D63-4FAB-8DB9-29B3528184B3}.Release|x86.ActiveCfg = Release|x86
-		{77EBD3FC-0D63-4FAB-8DB9-29B3528184B3}.Release|x86.Build.0 = Release|x86
 		{BAA9A6E4-7690-4DE0-9531-DE0EAEEC9739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BAA9A6E4-7690-4DE0-9531-DE0EAEEC9739}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAA9A6E4-7690-4DE0-9531-DE0EAEEC9739}.Debug|ARM.ActiveCfg = Debug|ARM
