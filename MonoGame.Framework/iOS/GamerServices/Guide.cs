@@ -246,16 +246,30 @@ namespace Microsoft.Xna.Framework.GamerServices
 			keyboardViewController = new KeyboardInputViewController(
 				title, description, defaultText, usePasswordMode, _gameViewController);
 
-			_gameViewController.PresentModalViewController (keyboardViewController, true);
+            _gameViewController.View.Add (keyboardViewController.View);
+			//_gameViewController.PresentModalViewController (keyboardViewController, true);
+
 
 			keyboardViewController.View.InputAccepted += (sender, e) => {
-                _gameViewController.DismissModalViewControllerAnimated(true);
-				Interlocked.Decrement (ref _showKeyboardInputRequestCount);
+                if(_showKeyboardInputRequestCount == 1)
+                {
+                    //_gameViewController.DismissModalViewControllerAnimated(true);
+    				Interlocked.Decrement (ref _showKeyboardInputRequestCount);
+                }
+                KeyboardInputView keyboardInputView = sender as KeyboardInputView;
+                keyboardInputView.RemoveFromSuperview();
+                IsVisible = false;
 			};
 
 			keyboardViewController.View.InputCanceled += (sender, e) => {
-                _gameViewController.DismissModalViewControllerAnimated(true);
-				Interlocked.Decrement (ref _showKeyboardInputRequestCount);
+                if(_showKeyboardInputRequestCount == 1)
+                {
+                    //_gameViewController.DismissModalViewControllerAnimated(true);
+    				Interlocked.Decrement (ref _showKeyboardInputRequestCount);
+                }
+                KeyboardInputView keyboardInputView = sender as KeyboardInputView;
+                keyboardInputView.RemoveFromSuperview();
+                IsVisible = false;
 			};
 
 			return new KeyboardInputAsyncResult (keyboardViewController, callback, state);
@@ -270,6 +284,7 @@ namespace Microsoft.Xna.Framework.GamerServices
 			if (!(result is KeyboardInputAsyncResult))
 				throw new ArgumentException ("result");
 
+            IsVisible = false;
 			return (result as KeyboardInputAsyncResult).GetResult();
 		}
 
@@ -408,17 +423,19 @@ namespace Microsoft.Xna.Framework.GamerServices
 						prevGestures=TouchPanel.EnabledGestures;
 						TouchPanel.EnabledGestures=GestureType.None;
                         viewController.PresentModalViewController(leaderboardController, true);
-						IsVisible = true;
-					}
-			    }
-			}
-			else
-			{
-				UIAlertView alert = new UIAlertView("Error","You need to be logged into Game Center to view the Leaderboard.",null,"Ok");
+                        IsVisible = true;
+                    }
+                }
+            }
+            else
+            {
+                UIAlertView alert = new UIAlertView("Error","You need to be logged into Game Center to view the Leaderboard.",null,"Ok");
 				alert.Show();
 				ShowSignIn(1,true);
 			}
 		}
+
+
 
 		public static void ShowAchievements()
 		{
@@ -452,18 +469,20 @@ namespace Microsoft.Xna.Framework.GamerServices
 
 						prevGestures=TouchPanel.EnabledGestures;
 						TouchPanel.EnabledGestures=GestureType.None;
-						viewController.PresentModalViewController(achievementController, true);						
-						IsVisible = true;
-					}
-			    }
-			}
-			else
-			{
-				UIAlertView alert = new UIAlertView("Error","You need to be logged into Game Center to view Achievements.",null,"Ok");
+                        viewController.PresentModalViewController(achievementController, true);                     
+                        IsVisible = true;
+                    }
+                }
+            }
+            else
+            {
+                UIAlertView alert = new UIAlertView("Error","You need to be logged into Game Center to view Achievements.",null,"Ok");
 				alert.Show();
 				ShowSignIn(1,true);
 			}
 		}
+
+
 		
 		public static void ShowPeerPicker(GKPeerPickerControllerDelegate aPeerPickerControllerDelegate)
 		{
