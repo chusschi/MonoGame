@@ -461,17 +461,25 @@ namespace Microsoft.Xna.Framework.GamerServices
 	
 	public class SignedInEventArgs : EventArgs
 	{
+        SignedInGamer gamer;
+
+        public SignedInGamer Gamer { get { return gamer; } }
+
 		public SignedInEventArgs ( SignedInGamer gamer )
 		{
-			
+            this.gamer = gamer;
 		}
 	}
 	
 	public class SignedOutEventArgs : EventArgs
 	{
+        SignedInGamer gamer;
+
+        public SignedInGamer Gamer { get { return gamer; } }
+
 		public SignedOutEventArgs (SignedInGamer gamer )
 		{
-			
+            this.gamer = gamer;
 		}
 	}
 }
