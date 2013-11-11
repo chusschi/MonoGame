@@ -375,7 +375,9 @@ namespace Microsoft.Xna.Framework.Audio
                     
                     if (isWma || isM4a) {
                         //WMA data can sometimes be played directly
-#if !WINRT                        
+#if DIRECTX
+                        throw new NotImplementedException();
+#elif !WINRT
                         //hack - NSSound can't play non-wav from data, we have to give a filename
                         string filename = Path.GetTempFileName();
                         if (isWma) {
@@ -385,9 +387,8 @@ namespace Microsoft.Xna.Framework.Audio
                         }
                         using (var audioFile = File.Create(filename))
                             audioFile.Write(audiodata, 0, audiodata.Length);
-
-                        Stream s = File.OpenRead(filename);
-                        sounds[current_entry] = new SoundEffect(s).CreateInstance();
+                        
+                        sounds[current_entry] = new SoundEffect(filename).CreateInstance();
 #else
 						throw new NotImplementedException();
 #endif
