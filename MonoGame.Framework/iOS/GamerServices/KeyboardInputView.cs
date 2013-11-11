@@ -78,7 +78,7 @@ namespace Microsoft.Xna.Framework {
 		private static readonly PaddingF DescriptionMargin = new PaddingF (12, 2, 10, 5);
 		private static readonly PaddingF TextFieldMargin = new PaddingF (10, 5, 10, 5);
 
-		private readonly UIToolbar _toolbar;
+		//private readonly UIToolbar _toolbar;
 		private readonly UILabel _title;
 		private readonly UILabel _description;
 		private readonly UITextField _textField;
@@ -87,6 +87,7 @@ namespace Microsoft.Xna.Framework {
 		public KeyboardInputView (RectangleF frame)
 			: base(frame)
 		{
+            /*
 			_toolbar = new UIToolbar (frame);
 
 			var toolbarItems = new UIBarButtonItem[] {
@@ -97,6 +98,7 @@ namespace Microsoft.Xna.Framework {
 
 			_toolbar.SetItems (toolbarItems, false);
 			_toolbar.SizeToFit ();
+            */
 
 			_title = new UILabel (RectangleF.Empty);
 			_title.Font = UIFont.SystemFontOfSize (UIFont.LabelFontSize * 1.2f);
@@ -114,24 +116,22 @@ namespace Microsoft.Xna.Framework {
 			_textFieldContainer = new UIScrollView(new RectangleF(0, 0, 100, 100));
 
 			_textField = new UITextField (_textFieldContainer.Bounds);
-			_textField.AutoresizingMask =
-				UIViewAutoresizing.FlexibleWidth |
-				UIViewAutoresizing.FlexibleHeight;
+            _textField.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 			_textField.BorderStyle = UITextBorderStyle.RoundedRect;
 			_textField.Delegate = new TextFieldDelegate (this);
 
 			_textFieldContainer.Add (_textField);
 
-			Add (_toolbar);
+			//Add (_toolbar);
 			Add (_title);
 			Add (_description);
 			Add (_textFieldContainer);
 
-			AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-			AutosizesSubviews = false;
-			Opaque = true;
+            AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+			AutosizesSubviews = true;
+			Opaque = false;
 			BackgroundColor = UIColor.FromRGB (0xC5, 0xCC, 0xD4);
-
+            ScrollEnabled = false;
 			SetNeedsLayout ();
 		}
 
@@ -213,11 +213,11 @@ namespace Microsoft.Xna.Framework {
 
 		public override void LayoutSubviews ()
 		{
-			_toolbar.SizeToFit ();
+			//_toolbar.SizeToFit ();
 
 			var titleSize = SizeThatFitsWidth (_title, Bounds.Width - TitleMargin.Horizontal);
 			_title.Frame = new RectangleF (
-				TitleMargin.Left, _toolbar.Bounds.Bottom + TitleMargin.Top,
+				TitleMargin.Left, /*_toolbar.Bounds.Bottom +*/ TitleMargin.Top,
 				titleSize.Width, titleSize.Height);
 
 			var descriptionSize = SizeThatFitsWidth (
@@ -236,6 +236,11 @@ namespace Microsoft.Xna.Framework {
 
 			ContentSize = new SizeF(Bounds.Width, _textFieldContainer.Frame.Bottom + TextFieldMargin.Bottom);
 		}
+
+        public void DoInputCanceled()
+        {
+            OnInputCanceled (EventArgs.Empty);
+        }
 
 		private static SizeF SizeThatFitsWidth(UILabel label, float width)
 		{

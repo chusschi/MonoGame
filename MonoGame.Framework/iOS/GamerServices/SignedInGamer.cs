@@ -78,6 +78,7 @@ namespace Microsoft.Xna.Framework.GamerServices
 		{
 			try 				
 			{
+                Guide.IsVisible = true;
 				var osVersion = UIDevice.CurrentDevice.SystemVersion;
 				if(osVersion.Contains("."))
 				if(osVersion.IndexOf(".") != osVersion.LastIndexOf("."))
@@ -101,6 +102,7 @@ namespace Microsoft.Xna.Framework.GamerServices
     												if ( error != null )								
     													Console.WriteLine(error);
 #endif
+                                                    Guide.IsVisible = false;
     											}
     						                );
     					}
@@ -109,6 +111,7 @@ namespace Microsoft.Xna.Framework.GamerServices
 			}
 			catch (Exception ex) 
 			{
+                Guide.IsVisible = false;
 #if DEBUG				
 				Console.WriteLine(ex.Message);
 #endif
@@ -123,12 +126,16 @@ namespace Microsoft.Xna.Framework.GamerServices
 			NSNotificationCenter.DefaultCenter.AddObserver( new NSString("GKPlayerAuthenticationDidChangeNotificationName"), (notification) => {   
         													    if (lp !=null && lp.Authenticated)
 																{
-																	this.Gamertag = lp.Alias;
-																	this.DisplayName = lp.PlayerID;	
-														        	// Insert code here to handle a successful authentication.
-																	Gamer.SignedInGamers.Add(this);
-																	// Fire the SignedIn event
-																	OnSignedIn(new SignedInEventArgs(this) );
+                                                                    if (lp.Authenticated)
+                                                                    {
+    																	this.Gamertag = lp.Alias;
+    																	this.DisplayName = lp.PlayerID;	
+    														        	// Insert code here to handle a successful authentication.
+    																	Gamer.SignedInGamers.Add(this);
+    																	// Fire the SignedIn event
+    																	OnSignedIn(new SignedInEventArgs(this) );
+                                                                    }
+                                                                    Guide.IsVisible = false;
 																}
 														    	else
 																{
@@ -461,17 +468,25 @@ namespace Microsoft.Xna.Framework.GamerServices
 	
 	public class SignedInEventArgs : EventArgs
 	{
+        SignedInGamer gamer;
+
+        public SignedInGamer Gamer { get { return gamer; } }
+
 		public SignedInEventArgs ( SignedInGamer gamer )
 		{
-			
+            this.gamer = gamer;
 		}
 	}
 	
 	public class SignedOutEventArgs : EventArgs
 	{
+        SignedInGamer gamer;
+
+        public SignedInGamer Gamer { get { return gamer; } }
+
 		public SignedOutEventArgs (SignedInGamer gamer )
 		{
-			
+            this.gamer = gamer;
 		}
 	}
 }
