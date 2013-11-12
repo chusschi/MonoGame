@@ -24,11 +24,23 @@ namespace MonoGameContentProcessors.Processors
             if (platform == MonoGamePlatform.None)
                 return base.Process(input, context);
 
+            switch (platform)
+            {
+                case MonoGamePlatform.iOS:
+                    this.Defines += "IOS;";
+                    break;
+                case MonoGamePlatform.OSX:
+                    this.Defines += "OSX;";
+                    break;
+            }
+
             var options = new Options();
             options.SourceFile = input.Identity.SourceFilename;
             options.DX11Profile = platform == MonoGamePlatform.Windows8 ? true : false;
             options.Debug = DebugMode == EffectProcessorDebugMode.Debug;
             options.OutputFile = context.OutputFilename;
+
+            options.Defines = this.Defines;
 
             // Parse the MGFX file expanding includes, macros, and returning the techniques.
             ShaderInfo shaderInfo;
