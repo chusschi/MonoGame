@@ -8,6 +8,9 @@
         [Utilities.CommandLineParser.Required]
         public string OutputFile = string.Empty;
 
+        [Utilities.CommandLineParser.Name("DEFINES")]
+        public string Defines;
+
         [Utilities.CommandLineParser.Name("DX11")]
         public bool DX11Profile;
 

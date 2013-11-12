@@ -377,7 +377,17 @@ namespace TwoMGFX
 
 		static public ShaderInfo FromString(string effectSource, string filePath, Options options)
 		{
-			var macros = new List<SharpDX.Direct3D.ShaderMacro>();
+            var macros = new List<SharpDX.Direct3D.ShaderMacro>();
+
+            if (!string.IsNullOrEmpty(options.Defines))
+            {
+                string[] defines = options.Defines.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < defines.Length; ++i)
+                {
+                    macros.Add(new SharpDX.Direct3D.ShaderMacro(defines[i], 1));
+                }
+            }
+
 			macros.Add(new SharpDX.Direct3D.ShaderMacro("MGFX", 1));
 
 			// Under the DX11 profile we pass a few more macros.
