@@ -94,14 +94,13 @@ namespace Microsoft.Xna.Framework {
 		private readonly List<NSObject> _keyboardObservers = new List<NSObject> ();
 		public override void LoadView ()
 		{
-			var view = new KeyboardInputView (new RectangleF (0, 0, 240, 320));
+            var view = new KeyboardInputView (new RectangleF (0, _gameViewController.View.Bounds.Height, _gameViewController.View.Bounds.Width, 100));
 			view.Title = _titleText;
 			view.Description = _descriptionText;
 			view.Text = _defaultText;
 			view.UsePasswordMode = _usePasswordMode;
 
 			view.ActivateFirstField ();
-
 			base.View = view;
 
 			_keyboardObservers.Add (
@@ -129,6 +128,9 @@ namespace Microsoft.Xna.Framework {
 		private void Keyboard_DidShow(NSNotification notification)
 		{
 			var keyboardSize = UIKeyboard.FrameBeginFromNotification (notification).Size;
+            //TODO mirar si es correcto esto porque parece que están cambiadas las X e Y
+            float y = UIKeyboard.FrameEndFromNotification (notification).Width;
+
 
 			if (InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft ||
 			    InterfaceOrientation == UIInterfaceOrientation.LandscapeRight)
@@ -138,10 +140,10 @@ namespace Microsoft.Xna.Framework {
 			}
 
 			var view = (KeyboardInputView)View;
-			var contentInsets = new UIEdgeInsets(0f, 0f, keyboardSize.Height, 0f);
+			var contentInsets = new UIEdgeInsets(0f, 0f, 0f, 0f);
+            view.Frame = new RectangleF (view.Frame.X, _gameViewController.View.Frame.Width - y - view.Frame.Height, view.Frame.Width, view.Frame.Height);
 			view.ContentInset = contentInsets;
 			view.ScrollIndicatorInsets = contentInsets;
-
 			view.ScrollActiveFieldToVisible ();
 		}
 
@@ -150,6 +152,7 @@ namespace Microsoft.Xna.Framework {
 			var view = (KeyboardInputView)View;
 			view.ContentInset = UIEdgeInsets.Zero;
 			view.ScrollIndicatorInsets = UIEdgeInsets.Zero;
+            view.DoInputCanceled ();
 		}
 
         #region Autorotation for iOS 5 or older
@@ -184,6 +187,11 @@ namespace Microsoft.Xna.Framework {
 			base.WillRotate(toInterfaceOrientation, duration);
 			View.LayoutSubviews ();
 		}
+
+        public override void DidRotate (UIInterfaceOrientation fromInterfaceOrientation)
+        {
+            _gameViewController.DidRotate (fromInterfaceOrientation);
+        }
 	}
 
 	struct PaddingF {
