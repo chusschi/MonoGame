@@ -354,6 +354,7 @@ namespace Microsoft.Xna.Framework
 #else
             // Set "full screen"  as default
             presentationParameters.IsFullScreen = true;
+            presentationParameters.BackBufferFormat = _preferredBackBufferFormat;
 #endif // MONOMAC
 
 #endif // WINDOWS || WINRT

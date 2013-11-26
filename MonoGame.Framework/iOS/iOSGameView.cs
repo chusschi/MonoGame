@@ -156,13 +156,21 @@ namespace Microsoft.Xna.Framework {
 		{
 			AssertNotDisposed ();
 
+            var gds = _platform.Game.Services.GetService (
+                typeof (IGraphicsDeviceService)) as IGraphicsDeviceService;
+
+            NSString format = EAGLColorFormat.RGBA8;
+            if ((gds != null) && (gds.GraphicsDevice != null) && (gds.GraphicsDevice.PresentationParameters.BackBufferFormat == SurfaceFormat.Bgr565))
+                format = EAGLColorFormat.RGB565;
+
+
             // RetainedBacking controls if the content of the colorbuffer should be preserved after being displayed
             // This is the XNA equivalent to set PreserveContent when initializing the GraphicsDevice
             // (should be false by default for better performance)
 			Layer.DrawableProperties = NSDictionary.FromObjectsAndKeys (
 				new NSObject [] {
 					NSNumber.FromBoolean (false), 
-					EAGLColorFormat.RGBA8
+					format
 				},
 				new NSObject [] {
 					EAGLDrawableProperty.RetainedBacking,
