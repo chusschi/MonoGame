@@ -23,6 +23,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+using System.Runtime.CompilerServices;
+
+
 #endregion License
 
 using System;
@@ -227,6 +230,7 @@ namespace Microsoft.Xna.Framework
             return vector1;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Cross(ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
         {
             result = new Vector3(vector1.Y * vector2.Z - vector2.Y * vector1.Z,
@@ -234,6 +238,7 @@ namespace Microsoft.Xna.Framework
                                  vector1.X * vector2.Y - vector2.X * vector1.Y);
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static float Distance(Vector3 vector1, Vector3 vector2)
         {
             float result;
@@ -241,12 +246,14 @@ namespace Microsoft.Xna.Framework
             return (float)Math.Sqrt(result);
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Distance(ref Vector3 value1, ref Vector3 value2, out float result)
         {
             DistanceSquared(ref value1, ref value2, out result);
             result = (float)Math.Sqrt(result);
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static float DistanceSquared(Vector3 value1, Vector3 value2)
         {
             float result;
@@ -254,6 +261,7 @@ namespace Microsoft.Xna.Framework
             return result;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void DistanceSquared(ref Vector3 value1, ref Vector3 value2, out float result)
         {
             result = (value1.X - value2.X) * (value1.X - value2.X) +
@@ -261,6 +269,7 @@ namespace Microsoft.Xna.Framework
                      (value1.Z - value2.Z) * (value1.Z - value2.Z);
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Divide(Vector3 value1, Vector3 value2)
         {
             value1.X /= value2.X;
@@ -269,6 +278,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Divide(Vector3 value1, float value2)
         {
             float factor = 1 / value2;
@@ -278,6 +288,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Divide(ref Vector3 value1, float divisor, out Vector3 result)
         {
             float factor = 1 / divisor;
@@ -286,6 +297,7 @@ namespace Microsoft.Xna.Framework
             result.Z = value1.Z * factor;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Divide(ref Vector3 value1, ref Vector3 value2, out Vector3 result)
         {
             result.X = value1.X / value2.X;
@@ -293,16 +305,19 @@ namespace Microsoft.Xna.Framework
             result.Z = value1.Z / value2.Z;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static float Dot(Vector3 vector1, Vector3 vector2)
         {
             return vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Dot(ref Vector3 vector1, ref Vector3 vector2, out float result)
         {
             result = vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
         {
             if (!(obj is Vector3))
@@ -314,6 +329,7 @@ namespace Microsoft.Xna.Framework
                     Z == other.Z;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector3 other)
         {
             return  X == other.X && 
@@ -321,11 +337,13 @@ namespace Microsoft.Xna.Framework
                     Z == other.Z;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
             return (int)(this.X + this.Y + this.Z);
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, float amount)
         {
             Vector3 result = new Vector3();
@@ -333,6 +351,7 @@ namespace Microsoft.Xna.Framework
             return result;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Hermite(ref Vector3 value1, ref Vector3 tangent1, ref Vector3 value2, ref Vector3 tangent2, float amount, out Vector3 result)
         {
             result.X = MathHelper.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount);
@@ -340,6 +359,7 @@ namespace Microsoft.Xna.Framework
             result.Z = MathHelper.Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount);
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public float Length()
         {
             float result;
@@ -347,6 +367,7 @@ namespace Microsoft.Xna.Framework
             return (float)Math.Sqrt(result);
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public float LengthSquared()
         {
             float result;
@@ -354,6 +375,7 @@ namespace Microsoft.Xna.Framework
             return result;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Lerp(Vector3 value1, Vector3 value2, float amount)
         {
             return new Vector3(
@@ -362,6 +384,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Lerp(value1.Z, value2.Z, amount));
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Lerp(ref Vector3 value1, ref Vector3 value2, float amount, out Vector3 result)
         {
             result = new Vector3(
@@ -370,6 +393,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Lerp(value1.Z, value2.Z, amount));
         }
                 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Max(Vector3 value1, Vector3 value2)
         {
             return new Vector3(
@@ -378,6 +402,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Max(value1.Z, value2.Z));
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Max(ref Vector3 value1, ref Vector3 value2, out Vector3 result)
         {
             result = new Vector3(
@@ -386,6 +411,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Max(value1.Z, value2.Z));
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Min(Vector3 value1, Vector3 value2)
         {
             return new Vector3(
@@ -394,6 +420,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Min(value1.Z, value2.Z));
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Min(ref Vector3 value1, ref Vector3 value2, out Vector3 result)
         {
             result = new Vector3(
@@ -402,6 +429,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Min(value1.Z, value2.Z));
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Multiply(Vector3 value1, Vector3 value2)
         {
             value1.X *= value2.X;
@@ -410,6 +438,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Multiply(Vector3 value1, float scaleFactor)
         {
             value1.X *= scaleFactor;
@@ -418,6 +447,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Multiply(ref Vector3 value1, float scaleFactor, out Vector3 result)
         {
             result.X = value1.X * scaleFactor;
@@ -425,6 +455,7 @@ namespace Microsoft.Xna.Framework
             result.Z = value1.Z * scaleFactor;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Multiply(ref Vector3 value1, ref Vector3 value2, out Vector3 result)
         {
             result.X = value1.X * value2.X;
@@ -432,28 +463,33 @@ namespace Microsoft.Xna.Framework
             result.Z = value1.Z * value2.Z;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Negate(Vector3 value)
         {
             value = new Vector3(-value.X, -value.Y, -value.Z);
             return value;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Negate(ref Vector3 value, out Vector3 result)
         {
             result = new Vector3(-value.X, -value.Y, -value.Z);
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public void Normalize()
         {
             Normalize(ref this, out this);
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Normalize(Vector3 vector)
         {
             Normalize(ref vector, out vector);
             return vector;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Normalize(ref Vector3 value, out Vector3 result)
         {
             float factor;
@@ -464,7 +500,8 @@ namespace Microsoft.Xna.Framework
             result.Z = value.Z * factor;
         }
 
-	public static Vector3 Reflect(Vector3 vector, Vector3 normal)
+    [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+    public static Vector3 Reflect(Vector3 vector, Vector3 normal)
 	{
 		// I is the original array
 		// N is the normal of the incident plane
@@ -479,7 +516,8 @@ namespace Microsoft.Xna.Framework
 		return reflectedVector;
 	}
 
-	public static void Reflect(ref Vector3 vector, ref Vector3 normal, out Vector3 result)
+    [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+    public static void Reflect(ref Vector3 vector, ref Vector3 normal, out Vector3 result)
 	{
 		// I is the original array
 		// N is the normal of the incident plane
@@ -493,6 +531,7 @@ namespace Microsoft.Xna.Framework
 
 	}
 		
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 SmoothStep(Vector3 value1, Vector3 value2, float amount)
         {
             return new Vector3(
@@ -501,6 +540,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.SmoothStep(value1.Z, value2.Z, amount));
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void SmoothStep(ref Vector3 value1, ref Vector3 value2, float amount, out Vector3 result)
         {
             result = new Vector3(
@@ -509,6 +549,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.SmoothStep(value1.Z, value2.Z, amount));
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Subtract(Vector3 value1, Vector3 value2)
         {
             value1.X -= value2.X;
@@ -517,6 +558,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Subtract(ref Vector3 value1, ref Vector3 value2, out Vector3 result)
         {
             result.X = value1.X - value2.X;
@@ -537,12 +579,14 @@ namespace Microsoft.Xna.Framework
             return sb.ToString();
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Transform(Vector3 position, Matrix matrix)
         {
             Transform(ref position, ref matrix, out position);
             return position;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Transform(ref Vector3 position, ref Matrix matrix, out Vector3 result)
         {
             result = new Vector3((position.X * matrix.M11) + (position.Y * matrix.M21) + (position.Z * matrix.M31) + matrix.M41,
@@ -550,6 +594,7 @@ namespace Microsoft.Xna.Framework
                                  (position.X * matrix.M13) + (position.Y * matrix.M23) + (position.Z * matrix.M33) + matrix.M43);
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Transform(Vector3[] sourceArray, ref Matrix matrix, Vector3[] destinationArray)
         {
             Debug.Assert(destinationArray.Length >= sourceArray.Length, "The destination array is smaller than the source array.");
@@ -573,6 +618,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="vec">The vector to transform.</param>
         /// <param name="quat">The quaternion to rotate the vector by.</param>
         /// <returns>The result of the operation.</returns>
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Transform(Vector3 vec, Quaternion quat)
         {
             Vector3 result;
@@ -606,6 +652,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="vec">The vector to transform.</param>
         /// <param name="quat">The quaternion to rotate the vector by.</param>
         /// <param name="result">The result of the operation.</param>
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void Transform(ref Vector3 value, ref Quaternion rotation, out Vector3 result)
         {
             float x = 2 * (rotation.Y * value.Z - rotation.Z * value.Y);
@@ -646,12 +693,14 @@ namespace Microsoft.Xna.Framework
         }
 
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 TransformNormal(Vector3 normal, Matrix matrix)
         {
             TransformNormal(ref normal, ref matrix, out normal);
             return normal;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static void TransformNormal(ref Vector3 normal, ref Matrix matrix, out Vector3 result)
         {
             result = new Vector3((normal.X * matrix.M11) + (normal.Y * matrix.M21) + (normal.Z * matrix.M31),
@@ -664,6 +713,7 @@ namespace Microsoft.Xna.Framework
 
         #region Operators
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Vector3 value1, Vector3 value2)
         {
             return value1.X == value2.X
@@ -671,11 +721,13 @@ namespace Microsoft.Xna.Framework
                 && value1.Z == value2.Z;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Vector3 value1, Vector3 value2)
         {
             return !(value1 == value2);
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 operator +(Vector3 value1, Vector3 value2)
         {
             value1.X += value2.X;
@@ -684,12 +736,14 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 operator -(Vector3 value)
         {
             value = new Vector3(-value.X, -value.Y, -value.Z);
             return value;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 operator -(Vector3 value1, Vector3 value2)
         {
             value1.X -= value2.X;
@@ -698,6 +752,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 operator *(Vector3 value1, Vector3 value2)
         {
             value1.X *= value2.X;
@@ -706,6 +761,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 operator *(Vector3 value, float scaleFactor)
         {
             value.X *= scaleFactor;
@@ -714,6 +770,7 @@ namespace Microsoft.Xna.Framework
             return value;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 operator *(float scaleFactor, Vector3 value)
         {
             value.X *= scaleFactor;
@@ -722,6 +779,7 @@ namespace Microsoft.Xna.Framework
             return value;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 operator /(Vector3 value1, Vector3 value2)
         {
             value1.X /= value2.X;
@@ -730,6 +788,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
         public static Vector3 operator /(Vector3 value, float divider)
         {
             float factor = 1 / divider;
