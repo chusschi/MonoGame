@@ -410,6 +410,34 @@ namespace Microsoft.Xna.Framework.Graphics
 #endif
         }
 
+#if GLES
+        public static bool operator==(SamplerState ss1,SamplerState ss2)
+        {
+            if (System.Object.ReferenceEquals (ss1, ss2))
+                return true;
+
+            if (((object)ss1 == null) || ((object)ss2 == null))
+                return false;
+
+            if ((ss1.Filter == ss2.Filter)
+                && (ss1.AddressU == ss2.AddressU)
+                && (ss1.AddressV == ss2.AddressV)
+                // Unused on GLES  &&(ss1.AddressW == ss2.AddressW)
+                && (ss1.MaxAnisotropy == ss2.MaxAnisotropy)
+                // Unused on GLES  &&(ss1.MaxMipLevel == ss2.MaxMipLevel)
+                // Unused on GLES  &&(ss1.MipMapLevelOfDetailBias == ss2.MipMapLevelOfDetailBias)
+                )
+                return true;
+
+            return false;
+        }
+
+        public static bool operator!=(SamplerState ss1,SamplerState ss2)
+        {
+            return !(ss1 == ss2);
+        }
+#endif
+
     private int GetWrapMode(TextureAddressMode textureAddressMode)
     {
       switch(textureAddressMode)

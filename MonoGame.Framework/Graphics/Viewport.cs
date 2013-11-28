@@ -211,13 +211,22 @@ namespace Microsoft.Xna.Framework.Graphics
 		    return vector;
 
         }
+
+        public static bool operator==(Viewport v1,Viewport v2)
+        {
+            return (v1.width == v2.width) && (v1.height == v2.height) && (v1.minDepth == v2.minDepth) && (v1.maxDepth == v2.maxDepth) && (v1.x == v2.x) && (v1.y == v2.y);
+        }
+
+        public static bool operator!=(Viewport v1,Viewport v2)
+        {
+            return !(v1 == v2);
+        }
 		
 		private static bool WithinEpsilon(float a, float b)
 		{
 		    float num = a - b;
 		    return ((-1.401298E-45f <= num) && (num <= float.Epsilon));
 		}
-
 
         public override string ToString ()
 	{

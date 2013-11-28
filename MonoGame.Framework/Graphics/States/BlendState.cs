@@ -288,6 +288,37 @@ namespace Microsoft.Xna.Framework.Graphics
             GraphicsExtensions.CheckGLError();
         }
 
+#if GLES
+        public static bool operator==(BlendState bs1,BlendState bs2)
+        {
+            if (System.Object.ReferenceEquals (bs1, bs2))
+                return true;
+
+            if (((object)bs1 == null) || ((object)bs2 == null))
+                return false;
+
+            if ((bs1.AlphaBlendFunction == bs2.AlphaBlendFunction)
+                && (bs1.AlphaDestinationBlend == bs2.AlphaDestinationBlend)
+                && (bs1.AlphaSourceBlend == bs2.AlphaSourceBlend)
+                && (bs1.BlendFactor == bs2.BlendFactor)
+                && (bs1.ColorBlendFunction == bs2.ColorBlendFunction)
+                && (bs1.ColorDestinationBlend ==bs2.ColorDestinationBlend)
+                && (bs1.ColorSourceBlend == bs2.ColorSourceBlend)
+                && (bs1.ColorWriteChannels == bs2.ColorWriteChannels)
+                // Unused on GLES && (bs1.ColorWriteChannels2 == bs2.ColorWriteChannels2)
+                )
+                return true;
+
+            return false;
+        }
+
+        public static bool operator!=(BlendState bs1,BlendState bs2)
+        {
+            return !(bs1 == bs2);
+        }
+
+#endif
+
 #elif DIRECTX
 
         protected internal override void GraphicsDeviceResetting()

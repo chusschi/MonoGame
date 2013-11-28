@@ -23,6 +23,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+using System.Runtime.CompilerServices;
+
+
 #endregion License
 
 using System;
@@ -226,13 +229,19 @@ namespace Microsoft.Xna.Framework
             Cross(ref vector1, ref vector2, out vector1);
             return vector1;
         }
-
+#if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
         public static void Cross(ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
         {
             result = new Vector3(vector1.Y * vector2.Z - vector2.Y * vector1.Z,
                                  -(vector1.X * vector2.Z - vector2.X * vector1.Z),
                                  vector1.X * vector2.Y - vector2.X * vector1.Y);
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static float Distance(Vector3 vector1, Vector3 vector2)
         {
@@ -241,11 +250,19 @@ namespace Microsoft.Xna.Framework
             return (float)Math.Sqrt(result);
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static void Distance(ref Vector3 value1, ref Vector3 value2, out float result)
         {
             DistanceSquared(ref value1, ref value2, out result);
             result = (float)Math.Sqrt(result);
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static float DistanceSquared(Vector3 value1, Vector3 value2)
         {
@@ -254,12 +271,20 @@ namespace Microsoft.Xna.Framework
             return result;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static void DistanceSquared(ref Vector3 value1, ref Vector3 value2, out float result)
         {
             result = (value1.X - value2.X) * (value1.X - value2.X) +
                      (value1.Y - value2.Y) * (value1.Y - value2.Y) +
                      (value1.Z - value2.Z) * (value1.Z - value2.Z);
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static Vector3 Divide(Vector3 value1, Vector3 value2)
         {
@@ -268,6 +293,10 @@ namespace Microsoft.Xna.Framework
             value1.Z /= value2.Z;
             return value1;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static Vector3 Divide(Vector3 value1, float value2)
         {
@@ -278,6 +307,10 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static void Divide(ref Vector3 value1, float divisor, out Vector3 result)
         {
             float factor = 1 / divisor;
@@ -286,6 +319,10 @@ namespace Microsoft.Xna.Framework
             result.Z = value1.Z * factor;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static void Divide(ref Vector3 value1, ref Vector3 value2, out Vector3 result)
         {
             result.X = value1.X / value2.X;
@@ -293,15 +330,27 @@ namespace Microsoft.Xna.Framework
             result.Z = value1.Z / value2.Z;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static float Dot(Vector3 vector1, Vector3 vector2)
         {
             return vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static void Dot(ref Vector3 vector1, ref Vector3 vector2, out float result)
         {
             result = vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public override bool Equals(object obj)
         {
@@ -314,6 +363,10 @@ namespace Microsoft.Xna.Framework
                     Z == other.Z;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public bool Equals(Vector3 other)
         {
             return  X == other.X && 
@@ -321,10 +374,18 @@ namespace Microsoft.Xna.Framework
                     Z == other.Z;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public override int GetHashCode()
         {
             return (int)(this.X + this.Y + this.Z);
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static Vector3 Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, float amount)
         {
@@ -333,12 +394,20 @@ namespace Microsoft.Xna.Framework
             return result;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static void Hermite(ref Vector3 value1, ref Vector3 tangent1, ref Vector3 value2, ref Vector3 tangent2, float amount, out Vector3 result)
         {
             result.X = MathHelper.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount);
             result.Y = MathHelper.Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount);
             result.Z = MathHelper.Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount);
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public float Length()
         {
@@ -347,12 +416,20 @@ namespace Microsoft.Xna.Framework
             return (float)Math.Sqrt(result);
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public float LengthSquared()
         {
             float result;
             DistanceSquared(ref this, ref zero, out result);
             return result;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static Vector3 Lerp(Vector3 value1, Vector3 value2, float amount)
         {
@@ -362,6 +439,10 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Lerp(value1.Z, value2.Z, amount));
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static void Lerp(ref Vector3 value1, ref Vector3 value2, float amount, out Vector3 result)
         {
             result = new Vector3(
@@ -370,6 +451,10 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Lerp(value1.Z, value2.Z, amount));
         }
                 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 Max(Vector3 value1, Vector3 value2)
         {
             return new Vector3(
@@ -377,6 +462,10 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Max(value1.Y, value2.Y),
                 MathHelper.Max(value1.Z, value2.Z));
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static void Max(ref Vector3 value1, ref Vector3 value2, out Vector3 result)
         {
@@ -386,6 +475,10 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Max(value1.Z, value2.Z));
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 Min(Vector3 value1, Vector3 value2)
         {
             return new Vector3(
@@ -393,6 +486,10 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Min(value1.Y, value2.Y),
                 MathHelper.Min(value1.Z, value2.Z));
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static void Min(ref Vector3 value1, ref Vector3 value2, out Vector3 result)
         {
@@ -402,6 +499,10 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Min(value1.Z, value2.Z));
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 Multiply(Vector3 value1, Vector3 value2)
         {
             value1.X *= value2.X;
@@ -409,6 +510,10 @@ namespace Microsoft.Xna.Framework
             value1.Z *= value2.Z;
             return value1;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static Vector3 Multiply(Vector3 value1, float scaleFactor)
         {
@@ -418,12 +523,20 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static void Multiply(ref Vector3 value1, float scaleFactor, out Vector3 result)
         {
             result.X = value1.X * scaleFactor;
             result.Y = value1.Y * scaleFactor;
             result.Z = value1.Z * scaleFactor;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static void Multiply(ref Vector3 value1, ref Vector3 value2, out Vector3 result)
         {
@@ -432,27 +545,47 @@ namespace Microsoft.Xna.Framework
             result.Z = value1.Z * value2.Z;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 Negate(Vector3 value)
         {
             value = new Vector3(-value.X, -value.Y, -value.Z);
             return value;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static void Negate(ref Vector3 value, out Vector3 result)
         {
             result = new Vector3(-value.X, -value.Y, -value.Z);
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public void Normalize()
         {
             Normalize(ref this, out this);
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 Normalize(Vector3 vector)
         {
             Normalize(ref vector, out vector);
             return vector;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static void Normalize(ref Vector3 value, out Vector3 result)
         {
@@ -464,7 +597,11 @@ namespace Microsoft.Xna.Framework
             result.Z = value.Z * factor;
         }
 
-	public static Vector3 Reflect(Vector3 vector, Vector3 normal)
+    #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
+    public static Vector3 Reflect(Vector3 vector, Vector3 normal)
 	{
 		// I is the original array
 		// N is the normal of the incident plane
@@ -479,7 +616,11 @@ namespace Microsoft.Xna.Framework
 		return reflectedVector;
 	}
 
-	public static void Reflect(ref Vector3 vector, ref Vector3 normal, out Vector3 result)
+    #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
+    public static void Reflect(ref Vector3 vector, ref Vector3 normal, out Vector3 result)
 	{
 		// I is the original array
 		// N is the normal of the incident plane
@@ -493,6 +634,10 @@ namespace Microsoft.Xna.Framework
 
 	}
 		
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 SmoothStep(Vector3 value1, Vector3 value2, float amount)
         {
             return new Vector3(
@@ -500,6 +645,10 @@ namespace Microsoft.Xna.Framework
                 MathHelper.SmoothStep(value1.Y, value2.Y, amount),
                 MathHelper.SmoothStep(value1.Z, value2.Z, amount));
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static void SmoothStep(ref Vector3 value1, ref Vector3 value2, float amount, out Vector3 result)
         {
@@ -509,6 +658,10 @@ namespace Microsoft.Xna.Framework
                 MathHelper.SmoothStep(value1.Z, value2.Z, amount));
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 Subtract(Vector3 value1, Vector3 value2)
         {
             value1.X -= value2.X;
@@ -516,6 +669,10 @@ namespace Microsoft.Xna.Framework
             value1.Z -= value2.Z;
             return value1;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static void Subtract(ref Vector3 value1, ref Vector3 value2, out Vector3 result)
         {
@@ -537,11 +694,19 @@ namespace Microsoft.Xna.Framework
             return sb.ToString();
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 Transform(Vector3 position, Matrix matrix)
         {
             Transform(ref position, ref matrix, out position);
             return position;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static void Transform(ref Vector3 position, ref Matrix matrix, out Vector3 result)
         {
@@ -549,6 +714,10 @@ namespace Microsoft.Xna.Framework
                                  (position.X * matrix.M12) + (position.Y * matrix.M22) + (position.Z * matrix.M32) + matrix.M42,
                                  (position.X * matrix.M13) + (position.Y * matrix.M23) + (position.Z * matrix.M33) + matrix.M43);
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static void Transform(Vector3[] sourceArray, ref Matrix matrix, Vector3[] destinationArray)
         {
@@ -573,6 +742,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="vec">The vector to transform.</param>
         /// <param name="quat">The quaternion to rotate the vector by.</param>
         /// <returns>The result of the operation.</returns>
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 Transform(Vector3 vec, Quaternion quat)
         {
             Vector3 result;
@@ -606,6 +779,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="vec">The vector to transform.</param>
         /// <param name="quat">The quaternion to rotate the vector by.</param>
         /// <param name="result">The result of the operation.</param>
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static void Transform(ref Vector3 value, ref Quaternion rotation, out Vector3 result)
         {
             float x = 2 * (rotation.Y * value.Z - rotation.Z * value.Y);
@@ -646,11 +823,19 @@ namespace Microsoft.Xna.Framework
         }
 
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 TransformNormal(Vector3 normal, Matrix matrix)
         {
             TransformNormal(ref normal, ref matrix, out normal);
             return normal;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static void TransformNormal(ref Vector3 normal, ref Matrix matrix, out Vector3 result)
         {
@@ -664,6 +849,10 @@ namespace Microsoft.Xna.Framework
 
         #region Operators
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static bool operator ==(Vector3 value1, Vector3 value2)
         {
             return value1.X == value2.X
@@ -671,10 +860,18 @@ namespace Microsoft.Xna.Framework
                 && value1.Z == value2.Z;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static bool operator !=(Vector3 value1, Vector3 value2)
         {
             return !(value1 == value2);
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static Vector3 operator +(Vector3 value1, Vector3 value2)
         {
@@ -684,11 +881,19 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 operator -(Vector3 value)
         {
             value = new Vector3(-value.X, -value.Y, -value.Z);
             return value;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static Vector3 operator -(Vector3 value1, Vector3 value2)
         {
@@ -698,6 +903,10 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 operator *(Vector3 value1, Vector3 value2)
         {
             value1.X *= value2.X;
@@ -705,6 +914,10 @@ namespace Microsoft.Xna.Framework
             value1.Z *= value2.Z;
             return value1;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static Vector3 operator *(Vector3 value, float scaleFactor)
         {
@@ -714,6 +927,10 @@ namespace Microsoft.Xna.Framework
             return value;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 operator *(float scaleFactor, Vector3 value)
         {
             value.X *= scaleFactor;
@@ -722,6 +939,10 @@ namespace Microsoft.Xna.Framework
             return value;
         }
 
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
+
         public static Vector3 operator /(Vector3 value1, Vector3 value2)
         {
             value1.X /= value2.X;
@@ -729,6 +950,10 @@ namespace Microsoft.Xna.Framework
             value1.Z /= value2.Z;
             return value1;
         }
+
+        #if !MONOMAC
+        [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
+#endif
 
         public static Vector3 operator /(Vector3 value, float divider)
         {

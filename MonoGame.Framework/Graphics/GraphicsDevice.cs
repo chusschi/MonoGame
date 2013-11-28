@@ -1558,6 +1558,8 @@ namespace Microsoft.Xna.Framework.Graphics
 
             set
             {
+                if (_viewport == value)
+                    return;
                 _viewport = value;
 #if DIRECTX
                 if (_d3dContext != null)
