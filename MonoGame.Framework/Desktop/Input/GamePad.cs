@@ -1063,11 +1063,13 @@ namespace Microsoft.Xna.Framework.Input
                 return false;
             }
 
-            if (leftMotor <= 0.0f && rightMotor <= 0.0f)
+            /*
+	    if (leftMotor <= 0.0f && rightMotor <= 0.0f)
             {
                 SDL.SDL_HapticStopAll(INTERNAL_haptics[(int)playerIndex]);
             }
-            else if (SDL.SDL_HapticEffectSupported(INTERNAL_haptics[(int)playerIndex], ref INTERNAL_effect) == 1)
+            else */
+            if (SDL.SDL_HapticEffectSupported(INTERNAL_haptics[(int)playerIndex], ref INTERNAL_effect) == 1)
             {
                 INTERNAL_effect.leftright.large_magnitude = (ushort)(65535.0f * leftMotor);
                 INTERNAL_effect.leftright.small_magnitude = (ushort)(65535.0f * rightMotor);
