@@ -61,11 +61,11 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Drawing" />
-    <Reference Include="Tao.Sdl">
-      <HintPath>..\ThirdParty\GamepadConfig\Tao.Sdl.dll</HintPath>
-    </Reference>
     <Reference Include="MonoMac, Version=0.0.0.0, Culture=neutral">
       <Private>False</Private>
+    </Reference>
+    <Reference Include="SDL2-CS">
+      <HintPath>..\ThirdParty\SDL2-CS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -204,7 +204,7 @@
     <Compile Include="Graphics\States\Blend.cs" />
     <Compile Include="Graphics\States\BlendFunction.cs" />
     <Compile Include="Graphics\States\BlendState.cs" />
-	<Compile Include="Graphics\States\TargetBlendState.cs" />
+    <Compile Include="Graphics\States\TargetBlendState.cs" />
     <Compile Include="Graphics\Effect\EffectParameterCollection.cs" />
     <Compile Include="Graphics\Effect\EffectPassCollection.cs" />
     <Compile Include="Graphics\Effect\EffectTechnique.cs" />
@@ -248,7 +248,6 @@
     <Compile Include="Desktop\Input\DPad.cs" />
     <Compile Include="Desktop\Input\GamePad.cs" />
     <Compile Include="Desktop\Input\Input.cs" />
-    <Compile Include="Desktop\Input\Joystick.cs" />
     <Compile Include="Desktop\Input\PadConfig.cs" />
     <Compile Include="Desktop\Input\Settings.cs" />
     <Compile Include="Desktop\Input\Stick.cs" />
