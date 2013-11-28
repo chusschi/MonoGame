@@ -76,6 +76,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Input;
 
+using SDL2;
+
 namespace Microsoft.Xna.Framework
 {
     class OpenTKGamePlatform : GamePlatform
@@ -118,9 +120,9 @@ namespace Microsoft.Xna.Framework
             
 #if LINUX
             // also set up SdlMixer to play background music. If one of these functions fails, we will not get any background music (but that should rarely happen)
-            Tao.Sdl.Sdl.SDL_InitSubSystem(Tao.Sdl.Sdl.SDL_INIT_AUDIO);
-            Tao.Sdl.SdlMixer.Mix_OpenAudio(44100, (short)Tao.Sdl.Sdl.AUDIO_S16SYS, 2, 1024);			
-
+            SDL.SDL_InitSubSystem(SDL.SDL_INIT_AUDIO);
+            //SDL.SdlMixer.Mix_OpenAudio(44100, (short)Tao.Sdl.Sdl.AUDIO_S16SYS, 2, 1024);			
+            SDL_mixer.Mix_OpenAudio(44100, (ushort)SDL.AUDIO_S16SYS, 2, 1024);          
             //even though this method is called whenever IsMouseVisible is changed it needs to be called during startup
             //so that the cursor can be put in the correct inital state (hidden)
             OnIsMouseVisibleChanged();
@@ -158,7 +160,7 @@ namespace Microsoft.Xna.Framework
                 _view.Window.Exit();
             }
 #if LINUX
-            Tao.Sdl.SdlMixer.Mix_CloseAudio();
+            SDL2.SDL_mixer.Mix_CloseAudio();
 #endif
             OpenTK.DisplayDevice.Default.RestoreResolution();
         }

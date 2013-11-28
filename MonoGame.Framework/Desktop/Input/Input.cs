@@ -41,6 +41,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SDL2;
 
 namespace Microsoft.Xna.Framework.Input
 {
@@ -58,20 +59,20 @@ namespace Microsoft.Xna.Framework.Input
             switch (Type)
             {
                 case InputType.Axis:
-                    var axis = Tao.Sdl.Sdl.SDL_JoystickGetAxis(device, this.ID);
+                    var axis = SDL.SDL_JoystickGetAxis(device, this.ID);
                     if (this.Negative)
                     {
                         return (axis < -DeadZone);
                     }
                     return (axis > DeadZone);
                 case InputType.Button:
-                    return ((Tao.Sdl.Sdl.SDL_JoystickGetButton(device, this.ID) > 0) ^ this.Negative);
+                    return ((SDL.SDL_JoystickGetButton(device, this.ID) > 0) ^ this.Negative);
                 case InputType.PovUp:
                 case InputType.PovDown:
                 case InputType.PovLeft:
                 case InputType.PovRight:
                     // Cast the type as an int to get the correct sdl mask for the hat
-                    return (((Tao.Sdl.Sdl.SDL_JoystickGetHat(device, this.ID) & (int)Type) > 0) ^ this.Negative);
+                    return (((SDL.SDL_JoystickGetHat(device, this.ID) & (int)Type) > 0) ^ this.Negative);
                 case InputType.None:
                 default:
                     return false;
@@ -85,14 +86,14 @@ namespace Microsoft.Xna.Framework.Input
             {
                 case InputType.Axis:
                     float range = this.Negative ? ((float)(-32768)) : ((float)0x7fff);
-                    return (((float)Tao.Sdl.Sdl.SDL_JoystickGetAxis(device, this.ID)) / range);
+                    return (((float)SDL.SDL_JoystickGetAxis(device, this.ID)) / range);
                 case InputType.Button:
-                    return (Tao.Sdl.Sdl.SDL_JoystickGetButton(device, this.ID) * mask);
+                    return (SDL.SDL_JoystickGetButton(device, this.ID) * mask);
                 case InputType.PovUp:
                 case InputType.PovDown:
                 case InputType.PovLeft:
                 case InputType.PovRight:
-                    return ((Tao.Sdl.Sdl.SDL_JoystickGetHat(device, this.ID) & (int)Type) * mask);
+                    return ((SDL.SDL_JoystickGetHat(device, this.ID) & (int)Type) * mask);
             }
             return 0f;
 
