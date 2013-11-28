@@ -190,8 +190,10 @@ namespace Microsoft.Xna.Framework.Input
 
             if (INTERNAL_devices[which] == IntPtr.Zero && thisJoystick == IntPtr.Zero)
             {
+#if DEBUG
                 // Crap, something went wrong.
                 System.Console.WriteLine("JOYSTICK OPEN ERROR: " + SDL.SDL_GetError());
+#endif
                 return;
             }
 
@@ -212,10 +214,13 @@ namespace Microsoft.Xna.Framework.Input
             if (SDL.SDL_JoystickIsHaptic(thisJoystick) == 1)
             {
                 INTERNAL_haptics[which] = SDL.SDL_HapticOpenFromJoystick(thisJoystick);
+#if DEBUG
                 if (INTERNAL_haptics[which] == IntPtr.Zero)
                 {
+
                     System.Console.WriteLine("HAPTIC OPEN ERROR: " + SDL.SDL_GetError());
                 }
+#endif
             }
             if (INTERNAL_haptics[which] != IntPtr.Zero)
             {
@@ -229,14 +234,17 @@ namespace Microsoft.Xna.Framework.Input
                 }
             }
 
+#if DEBUG
             // Check for an SDL_GameController configuration first!
             if (INTERNAL_isGameController[which])
             {
+
                 System.Console.WriteLine(
                     "Controller " + which + ", " +
                     SDL.SDL_GameControllerName(INTERNAL_devices[which]) +
                     ", will use SDL_GameController support. Device: " + INTERNAL_devices[which] 
                 );
+
             }
             else
             {
@@ -246,6 +254,7 @@ namespace Microsoft.Xna.Framework.Input
                     ", will use generic MonoGameJoystick support. Device: " + INTERNAL_devices[which]
                 );
             }
+#endif
         }
 
         internal static void INTERNAL_RemoveInstance(int which)
@@ -253,7 +262,9 @@ namespace Microsoft.Xna.Framework.Input
             int output;
             if (!INTERNAL_instanceList.TryGetValue(which, out output))
             {
+#if DEBUG
                 System.Console.WriteLine("Ignoring device removal, ID: " + which);
+#endif
                 return;
             }
             INTERNAL_instanceList.Remove(which);
@@ -276,8 +287,9 @@ namespace Microsoft.Xna.Framework.Input
 
             // A lot of errors can happen here, but honestly, they can be ignored...
             SDL.SDL_ClearError();
-
+#if DEBUG
             System.Console.WriteLine("Removed device, player: " + output);
+#endif
         }
 
         #endregion
