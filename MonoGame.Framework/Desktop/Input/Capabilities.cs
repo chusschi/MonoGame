@@ -41,6 +41,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SDL2;
 
 namespace Microsoft.Xna.Framework.Input
 {
@@ -49,9 +50,9 @@ namespace Microsoft.Xna.Framework.Input
         public Capabilities(IntPtr device)
         {
             // TODO: Complete member initialization            
-            this.NumberOfAxis = Tao.Sdl.Sdl.SDL_JoystickNumAxes(device);
-            this.NumberOfButtons = Tao.Sdl.Sdl.SDL_JoystickNumButtons(device);
-            this.NumberOfPovHats = Tao.Sdl.Sdl.SDL_JoystickNumHats(device);
+            this.NumberOfAxis = SDL.SDL_JoystickNumAxes(device);
+            this.NumberOfButtons = SDL.SDL_JoystickNumButtons(device);
+            this.NumberOfPovHats = SDL.SDL_JoystickNumHats(device);
         }
 
 
