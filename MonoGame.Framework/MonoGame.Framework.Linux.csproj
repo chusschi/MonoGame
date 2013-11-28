@@ -41,7 +41,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="SDL2-CS">
-      <HintPath>..\ThirdParty\Libs\SDL2-CS.dll</HintPath>
+      <HintPath>..\ThirdParty\SDL2-CS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
