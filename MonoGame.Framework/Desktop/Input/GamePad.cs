@@ -1021,6 +1021,8 @@ namespace Microsoft.Xna.Framework.Input
             return GetState(playerIndex, GamePadDeadZone.IndependentAxes);
         }
 
+        static int numJoys = 0;
+        static int currentNumJoys = 0;
         //
         // Summary:
         //     Gets the current state of a game pad controller, using a specified dead zone
@@ -1040,15 +1042,28 @@ namespace Microsoft.Xna.Framework.Input
                 INTERNAL_AutoConfig();
                 INTERNAL_wasInit = true;
             }
-            if (SDL.SDL_WasInit(SDL.SDL_INIT_JOYSTICK) == 1)
+            if (SDL.SDL_WasInit(SDL.SDL_INIT_JOYSTICK) == SDL.SDL_INIT_JOYSTICK)
             {
                 SDL.SDL_JoystickUpdate();
             }
-            if (SDL.SDL_WasInit(SDL.SDL_INIT_GAMECONTROLLER) == 1)
+            if (SDL.SDL_WasInit(SDL.SDL_INIT_GAMECONTROLLER) == SDL.SDL_INIT_GAMECONTROLLER)
             {
                 SDL.SDL_GameControllerUpdate();
             }
-            SDL.SDL_JoystickUpdate();
+
+            currentNumJoys = SDL.SDL_NumJoysticks();
+            if (numJoys != currentNumJoys)
+            {
+                if (currentNumJoys > numJoys)
+                {
+                    for(int i = 0; i < currentNumJoys; i++)
+                    {
+                        INTERNAL_AddInstance(i);
+                    }
+                }
+                numJoys = currentNumJoys;
+            }
+
             return ReadState(playerIndex, deadZoneMode);
         }
 
@@ -1114,6 +1129,11 @@ namespace Microsoft.Xna.Framework.Input
                 );
             }
             return true;
+        }
+
+        public static bool AnyGamePadConnected()
+        {
+            return SDL.SDL_NumJoysticks() > 0;
         }
 
         #endregion
