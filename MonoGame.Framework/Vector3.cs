@@ -229,7 +229,7 @@ namespace Microsoft.Xna.Framework
             Cross(ref vector1, ref vector2, out vector1);
             return vector1;
         }
-#if !MONOMAC
+#if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
         public static void Cross(ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
@@ -239,7 +239,7 @@ namespace Microsoft.Xna.Framework
                                  vector1.X * vector2.Y - vector2.X * vector1.Y);
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -250,7 +250,7 @@ namespace Microsoft.Xna.Framework
             return (float)Math.Sqrt(result);
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -260,7 +260,7 @@ namespace Microsoft.Xna.Framework
             result = (float)Math.Sqrt(result);
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -271,7 +271,7 @@ namespace Microsoft.Xna.Framework
             return result;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -282,7 +282,7 @@ namespace Microsoft.Xna.Framework
                      (value1.Z - value2.Z) * (value1.Z - value2.Z);
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -294,7 +294,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -307,7 +307,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -319,7 +319,7 @@ namespace Microsoft.Xna.Framework
             result.Z = value1.Z * factor;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -330,7 +330,7 @@ namespace Microsoft.Xna.Framework
             result.Z = value1.Z / value2.Z;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -339,7 +339,7 @@ namespace Microsoft.Xna.Framework
             return vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -348,7 +348,7 @@ namespace Microsoft.Xna.Framework
             result = vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -363,7 +363,7 @@ namespace Microsoft.Xna.Framework
                     Z == other.Z;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -374,7 +374,7 @@ namespace Microsoft.Xna.Framework
                     Z == other.Z;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -383,7 +383,7 @@ namespace Microsoft.Xna.Framework
             return (int)(this.X + this.Y + this.Z);
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -394,7 +394,7 @@ namespace Microsoft.Xna.Framework
             return result;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -405,7 +405,7 @@ namespace Microsoft.Xna.Framework
             result.Z = MathHelper.Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount);
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -416,7 +416,7 @@ namespace Microsoft.Xna.Framework
             return (float)Math.Sqrt(result);
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -427,7 +427,7 @@ namespace Microsoft.Xna.Framework
             return result;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -439,7 +439,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Lerp(value1.Z, value2.Z, amount));
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -451,7 +451,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Lerp(value1.Z, value2.Z, amount));
         }
                 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -463,7 +463,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Max(value1.Z, value2.Z));
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -475,7 +475,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Max(value1.Z, value2.Z));
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -487,7 +487,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Min(value1.Z, value2.Z));
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -499,7 +499,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.Min(value1.Z, value2.Z));
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -511,7 +511,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -523,7 +523,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -534,7 +534,7 @@ namespace Microsoft.Xna.Framework
             result.Z = value1.Z * scaleFactor;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -545,7 +545,7 @@ namespace Microsoft.Xna.Framework
             result.Z = value1.Z * value2.Z;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -555,7 +555,7 @@ namespace Microsoft.Xna.Framework
             return value;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -564,7 +564,7 @@ namespace Microsoft.Xna.Framework
             result = new Vector3(-value.X, -value.Y, -value.Z);
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -573,7 +573,7 @@ namespace Microsoft.Xna.Framework
             Normalize(ref this, out this);
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -583,7 +583,7 @@ namespace Microsoft.Xna.Framework
             return vector;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -597,7 +597,7 @@ namespace Microsoft.Xna.Framework
             result.Z = value.Z * factor;
         }
 
-    #if !MONOMAC
+    #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -616,7 +616,7 @@ namespace Microsoft.Xna.Framework
 		return reflectedVector;
 	}
 
-    #if !MONOMAC
+    #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -634,7 +634,7 @@ namespace Microsoft.Xna.Framework
 
 	}
 		
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -646,7 +646,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.SmoothStep(value1.Z, value2.Z, amount));
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -658,7 +658,7 @@ namespace Microsoft.Xna.Framework
                 MathHelper.SmoothStep(value1.Z, value2.Z, amount));
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -670,7 +670,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -694,7 +694,7 @@ namespace Microsoft.Xna.Framework
             return sb.ToString();
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -704,7 +704,7 @@ namespace Microsoft.Xna.Framework
             return position;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -715,7 +715,7 @@ namespace Microsoft.Xna.Framework
                                  (position.X * matrix.M13) + (position.Y * matrix.M23) + (position.Z * matrix.M33) + matrix.M43);
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -742,7 +742,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="vec">The vector to transform.</param>
         /// <param name="quat">The quaternion to rotate the vector by.</param>
         /// <returns>The result of the operation.</returns>
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -779,7 +779,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="vec">The vector to transform.</param>
         /// <param name="quat">The quaternion to rotate the vector by.</param>
         /// <param name="result">The result of the operation.</param>
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -823,7 +823,7 @@ namespace Microsoft.Xna.Framework
         }
 
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -833,7 +833,7 @@ namespace Microsoft.Xna.Framework
             return normal;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -849,7 +849,7 @@ namespace Microsoft.Xna.Framework
 
         #region Operators
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -860,7 +860,7 @@ namespace Microsoft.Xna.Framework
                 && value1.Z == value2.Z;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -869,7 +869,7 @@ namespace Microsoft.Xna.Framework
             return !(value1 == value2);
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -881,7 +881,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -891,7 +891,7 @@ namespace Microsoft.Xna.Framework
             return value;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -903,7 +903,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -915,7 +915,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -927,7 +927,7 @@ namespace Microsoft.Xna.Framework
             return value;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -939,7 +939,7 @@ namespace Microsoft.Xna.Framework
             return value;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
@@ -951,7 +951,7 @@ namespace Microsoft.Xna.Framework
             return value1;
         }
 
-        #if !MONOMAC
+        #if !MONOMAC && !LINUX
         [MethodImplAttribute(MethodImplOptions.AggressiveInlining)]
 #endif
 
