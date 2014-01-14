@@ -1,65 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-#if MONOMAC
-using MonoMac.OpenAL;
-#else
-using OpenTK.Audio.OpenAL;
-#endif
 
-namespace Microsoft.Xna.Framework.Audio
-{
-    public sealed class DynamicSoundEffectInstance : SoundEffectInstance
-    {
-        private AudioChannels channels;
+namespace Microsoft.Xna.Framework.Audio {
+    public sealed partial class DynamicSoundEffectInstance : SoundEffectInstance {
+        private const int SAMPLE_WIDTH = 2;
         private int sampleRate;
-        private ALFormat format;
-        private bool looped;
-        private int pendingBufferCount;
-        // Events
+        private int bytesPerSecond;
+
         public event EventHandler<EventArgs> BufferNeeded;
+
+        public override bool IsLooped {
+            get { return false; }
+            set { throw new InvalidOperationException("cannot loop DynamicSoundEffect"); }
+        }
+
+        public int PendingBufferCount { get; private set; }
 
         internal void OnBufferNeeded(EventArgs args)
         {
-            if (BufferNeeded != null)
-            {
+            if (BufferNeeded != null) {
                 BufferNeeded(this, args);
             }
         }
 
-        public DynamicSoundEffectInstance(int sampleRate, AudioChannels channels)
+        public DynamicSoundEffectInstance (int sampleRate, AudioChannels channels)
         {
+            soundState = SoundState.Stopped;
             this.sampleRate = sampleRate;
-            this.channels = channels;
-            switch (channels)
-            {
-                case AudioChannels.Mono:
-                    this.format = ALFormat.Mono16;
-                    break;
-                case AudioChannels.Stereo:
-                    this.format = ALFormat.Stereo16;
-                    break;
-                default:
-                    break;
-            }                       
+            setFormatFor(channels);
+            bytesPerSecond = ((int) channels) * sampleRate * SAMPLE_WIDTH;
         }
 
-        /*
         public TimeSpan GetSampleDuration(int sizeInBytes)
         {
-            throw new NotImplementedException();
+            return new TimeSpan(0, 0, 0, 0, (int) ((long) sizeInBytes * 1000L) / bytesPerSecond);
         }
 
         public int GetSampleSizeInBytes(TimeSpan duration)
         {
-            throw new NotImplementedException();
-        }
-        */
-
-        public override void Play()
-        {
-            throw new NotImplementedException();
+            return (int) (duration.TotalSeconds * bytesPerSecond);
         }
 
         public void SubmitBuffer(byte[] buffer)
@@ -69,34 +47,29 @@ namespace Microsoft.Xna.Framework.Audio
 
         public void SubmitBuffer(byte[] buffer, int offset, int count)
         {
-            BindDataBuffer(buffer, format, count, sampleRate);
+            QueueDataBuffer(buffer, format, offset, count, sampleRate);
         }
 
-        public override bool IsLooped
+        public override void Play()
         {
-            get
-            {
-                return looped;
-            }
-
-            set
-            {
-                looped = value;                
-            }
+            startPlaying();
         }
 
-        public int PendingBufferCount 
+        public override void Resume()
         {
-            get
-            {
-                return pendingBufferCount;
-            }
-            private set
-            {
-                pendingBufferCount = value;
+            Play();
+        }
+
+        public override void Stop()
+        {
+            soundState = SoundState.Stopped;
+        }
+
+        public override void Pause()
+        {
+            if (soundState == SoundState.Playing) {
+                soundState = SoundState.Paused;
             }
         }
     }
-
-
 }
