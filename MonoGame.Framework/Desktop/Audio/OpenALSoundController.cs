@@ -170,23 +170,31 @@ namespace Microsoft.Xna.Framework.Audio
         /// <returns>True if the buffer can be played, and false if not.</returns>
 		public bool ReserveSource (OALSoundBuffer soundBuffer)
 		{
-            if (!CheckInitState())
-            {
-                return(false);
-            }
-            int sourceNumber;
+			int sourceId;
+			if (!ReserveSource (out sourceId))
+				return false;
+
+			soundBuffer.SourceId = sourceId;
+			inUseSourcesCollection.Add (soundBuffer);
+			return true;
+		}
+
+		public bool ReserveSource(out int id)
+		{
+			if (!CheckInitState())
+			{
+				id = 0;
+				return(false);
+			}
 			if (availableSourcesCollection.Count == 0) {
 
-				soundBuffer.SourceId = 0;
+				id = 0;
 				return false;
 			}
-			
 
-			sourceNumber = availableSourcesCollection.First ();
-			soundBuffer.SourceId = sourceNumber;
-			inUseSourcesCollection.Add (soundBuffer);
 
-			availableSourcesCollection.Remove (sourceNumber);
+			id = availableSourcesCollection.First ();
+			availableSourcesCollection.Remove (id);
 
 			//sourceId = sourceNumber;
 			return true;
@@ -199,9 +207,15 @@ namespace Microsoft.Xna.Framework.Audio
                 return;
             }
             inUseSourcesCollection.Remove(soundBuffer);
-            if (!availableSourcesCollection.Contains(soundBuffer.SourceId))
-			    availableSourcesCollection.Add (soundBuffer.SourceId);
+			RecycleSource (soundBuffer.SourceId);
+            
 			soundBuffer.RecycleSoundBuffer();
+		}
+
+		public void RecycleSource(int id)
+		{
+			if (!availableSourcesCollection.Contains(id))
+				availableSourcesCollection.Add (id);
 		}
 
 		public void PlaySound (OALSoundBuffer soundBuffer)
