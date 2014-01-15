@@ -42,6 +42,7 @@ namespace Microsoft.Xna.Framework.Audio {
         /// <param name="rate">The sampling rate of the sound effect, e.g. 44 khz, 22 khz.</param>
         private void QueueDataBuffer (byte [] data, ALFormat format, int offset, int size, int rate)
         {
+
             byte[] dataSubset = new byte[size];
             Array.Copy(data, offset, dataSubset, 0, size);
 
@@ -74,13 +75,13 @@ namespace Microsoft.Xna.Framework.Audio {
 
         void startPlaying ()
         {
+            soundState = SoundState.Playing;
+
             ThreadPool.QueueUserWorkItem (new WaitCallback (queueBuffersForPlay));
         }
 
         private void queueBuffersForPlay (Object stateInfo)
         {
-            PendingBufferCount = 0;
-
             if (allocatedBuffers.Count < NUM_BUFFERS) {
                 this.OnBufferNeeded (new EventArgs ());
             }
@@ -93,23 +94,16 @@ namespace Microsoft.Xna.Framework.Audio {
                 return;
             }
 
-            ApplyState (nextBuffer.SourceId);
-            controller.PlaySound (nextBuffer);
+            ApplyState (SourceId);
 
-            
-            soundState = SoundState.Playing;
+            AL.SourcePlay (SourceId);
 
             while (soundState == SoundState.Playing) {
 
                 int processed;
-                AL.GetSource (nextBuffer.SourceId, ALGetSourcei.BuffersProcessed, out processed);
-                PendingBufferCount -= processed;
+                AL.GetSource (SourceId, ALGetSourcei.BuffersProcessed, out processed);
 
-                if (processed == 0)
-                {
-                    if (!controller.IsState(nextBuffer,(int)ALSourceState.Playing))
-                        controller.PlaySound(nextBuffer);
-                }
+                PendingBufferCount -= processed;
 
                 while (processed > 0) {
                     OALSoundBuffer soundBuffer;
@@ -118,9 +112,13 @@ namespace Microsoft.Xna.Framework.Audio {
                         return;
                     }
                 
+                    int prevBufferId = soundBuffer.OpenALDataBuffer;
                     int bufferId = soundBuffer.OpenALDataBuffer;
                     AL.SourceUnqueueBuffers (soundBuffer.SourceId, 1, ref bufferId);
-                    controller.CheckALError ("failed to unqueue buffer");
+                    if (bufferId != prevBufferId)
+                    {
+                        controller.CheckALError ("failed to unqueue buffer");
+                    }
 
                     processedBuffers.Enqueue (soundBuffer);
 
@@ -131,9 +129,21 @@ namespace Microsoft.Xna.Framework.Audio {
                 {
                     OnBufferNeeded (new EventArgs ());
                 }
-                if (allocatedBuffers.Count == 0)
-                    soundState = SoundState.Stopped;
+
+                ALSourceState state = AL.GetSourceState (SourceId);
+                if ((state == ALSourceState.Stopped) && allocatedBuffers.Count > 0)
+                {
+                    AL.SourcePlay (SourceId);
+                }
+                /*if (allocatedBuffers.Count == 0) || state == ALSourceState.Stopped)
+                    soundState = SoundState.Stopped;*/
+
+                Thread.Yield ();
             }
+
+            controller.RecycleSource(SourceId);
+
+            SourceId = 0;
         }
 //        /// <summary>
 //        /// Stops the current running sound effect, if relevant, removes its event handlers, and disposes

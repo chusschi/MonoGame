@@ -52,7 +52,8 @@ namespace Microsoft.Xna.Framework.Audio {
 
         public override void Play()
         {
-            startPlaying();
+            if (soundState != SoundState.Playing)
+                startPlaying();
         }
 
         public override void Resume()

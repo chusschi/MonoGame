@@ -199,7 +199,8 @@ namespace Microsoft.Xna.Framework.Audio
                 return;
             }
             inUseSourcesCollection.Remove(soundBuffer);
-			availableSourcesCollection.Add (soundBuffer.SourceId);
+            if (!availableSourcesCollection.Contains(soundBuffer.SourceId))
+			    availableSourcesCollection.Add (soundBuffer.SourceId);
 			soundBuffer.RecycleSoundBuffer();
 		}
 
