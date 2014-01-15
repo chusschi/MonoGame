@@ -141,9 +141,26 @@ namespace Microsoft.Xna.Framework.Audio {
                 Thread.Yield ();
             }
 
-            controller.RecycleSource(SourceId);
+			controller.RecycleSource(SourceId);
 
             SourceId = 0;
+
+			while (allocatedBuffers.Count > 0) {
+				OALSoundBuffer b;
+				if (allocatedBuffers.TryDequeue (out b))
+					b.Dispose ();
+				else
+					break;
+			}
+
+			while (processedBuffers.Count > 0) {
+				OALSoundBuffer b;
+				if (processedBuffers.TryDequeue (out b))
+					b.Dispose ();
+				else
+					break;
+			}
+
         }
 //        /// <summary>
 //        /// Stops the current running sound effect, if relevant, removes its event handlers, and disposes
