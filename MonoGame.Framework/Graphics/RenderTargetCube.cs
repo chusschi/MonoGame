@@ -167,10 +167,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 _depthStencilView = new DepthStencilView(graphicsDevice._d3dDevice, depthBuffer, depthStencilViewDescription);
             }
 #else
-            Threading.BlockOnUIThread(() =>
-            {
-                this.GraphicsDevice.CreateGLRenderTarget(this, size, size, preferredDepthFormat, preferredMultiSampleCount, this.RenderTargetUsage);
-            });   
+            throw new NotImplementedException();
 #endif            
         }
 
@@ -202,8 +199,6 @@ namespace Microsoft.Xna.Framework.Graphics
                         _depthStencilView = null;
                     }
                 }
-#elif OPENGL
-                Threading.BlockOnUIThread(() => { this.GraphicsDevice.DeleteGLRenderTarget(this); });
 #endif
 
                 base.Dispose(disposing);
