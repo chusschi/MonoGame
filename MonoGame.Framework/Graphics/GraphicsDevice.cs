@@ -255,7 +255,6 @@ namespace Microsoft.Xna.Framework.Graphics
 
 #if OPENGL
         internal int glFramebuffer;
-        internal int glRenderTargetFrameBuffer;
         internal int MaxVertexAttributes;        
         internal List<string> _extensions = new List<string>();
         internal int _maxTextureSize = 0;
@@ -1368,14 +1367,14 @@ namespace Microsoft.Xna.Framework.Graphics
                     // Free all the cached shader programs.
                     _programCache.Dispose();
 
-                    GraphicsDevice.AddDisposeAction(() =>
+                   /* GraphicsDevice.AddDisposeAction(() =>
                                                     {
                         if (this.glRenderTargetFrameBuffer > 0)
                         {
                             GL.DeleteFramebuffers(1, ref this.glRenderTargetFrameBuffer);
                             GraphicsExtensions.CheckGLError();
                         }
-                    });
+                    });*/
 #endif
 
 #if PSM
@@ -1738,24 +1737,17 @@ namespace Microsoft.Xna.Framework.Graphics
                     throw new NotImplementedException("RenderTargetCube not yet implemented.");
 
                 var renderTarget = _currentRenderTargetBindings[0].RenderTarget as RenderTarget2D;
-				if (this.glRenderTargetFrameBuffer == 0)
-				{
-#if GLES
-                    GL.GenFramebuffers(1, ref this.glRenderTargetFrameBuffer);
-#else
-                    GL.GenFramebuffers(1, out this.glRenderTargetFrameBuffer);
-#endif
-                    GraphicsExtensions.CheckGLError();
-                }
+                uint glRenderTargetFrameBuffer = renderTarget.glRenderTargetFrameBuffer;
 
-                GL.BindFramebuffer(GLFramebuffer, this.glRenderTargetFrameBuffer);
+
+                GL.BindFramebuffer(GLFramebuffer, glRenderTargetFrameBuffer);
                 GraphicsExtensions.CheckGLError();
-                GL.FramebufferTexture2D(GLFramebuffer, GLColorAttachment0, TextureTarget.Texture2D, renderTarget.glTexture, 0);
+                /*GL.FramebufferTexture2D(GLFramebuffer, GLColorAttachment0, TextureTarget.Texture2D, renderTarget.glTexture, 0);
                 GraphicsExtensions.CheckGLError();
 
 				// Reverted this change, as per @prollin's suggestion
 				GL.FramebufferRenderbuffer(GLFramebuffer, GLDepthAttachment, GLRenderbuffer, renderTarget.glDepthBuffer);
-				GL.FramebufferRenderbuffer(GLFramebuffer, GLStencilAttachment, GLRenderbuffer, renderTarget.glStencilBuffer);
+				GL.FramebufferRenderbuffer(GLFramebuffer, GLStencilAttachment, GLRenderbuffer, renderTarget.glStencilBuffer);*/
 
 #if !GLES
 				for (var i = 0; i < _currentRenderTargetCount; i++)
