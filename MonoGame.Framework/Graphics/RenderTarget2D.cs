@@ -67,19 +67,24 @@ namespace Microsoft.Xna.Framework.Graphics
     const RenderbufferStorage GLDepth24Stencil8 = RenderbufferStorage.Depth24Stencil8Oes;
     const RenderbufferStorage GLStencilIndex8 = RenderbufferStorage.StencilIndex8;
 #elif OPENGL
+    const FramebufferTarget GLFramebuffer = FramebufferTarget.FramebufferExt;
     const RenderbufferTarget GLRenderbuffer = RenderbufferTarget.RenderbufferExt;
     const RenderbufferStorage GLDepthComponent16 = RenderbufferStorage.DepthComponent16;
     const RenderbufferStorage GLDepthComponent24 = RenderbufferStorage.DepthComponent24;
     const RenderbufferStorage GLDepth24Stencil8 = RenderbufferStorage.Depth24Stencil8;
     const RenderbufferStorage GLStencilIndex8 = RenderbufferStorage.StencilIndex8;
+    const FramebufferAttachment GLDepthAttachment = FramebufferAttachment.DepthAttachmentExt;
+    const FramebufferAttachment GLStencilAttachment = FramebufferAttachment.StencilAttachment;
+    const FramebufferAttachment GLColorAttachment0 = FramebufferAttachment.ColorAttachment0;
 #endif
 
 #if DIRECTX
         internal RenderTargetView _renderTargetView;
         internal DepthStencilView _depthStencilView;
 #elif OPENGL
-    internal uint glDepthBuffer;
-    internal uint glStencilBuffer;
+        internal uint glDepthBuffer;
+        internal uint glStencilBuffer;
+        internal uint glRenderTargetFrameBuffer;
 #elif PSM
         internal FrameBuffer _frameBuffer;
 #endif
@@ -191,6 +196,25 @@ namespace Microsoft.Xna.Framework.Graphics
 				GraphicsExtensions.CheckGLError();
 			}
 
+                if (this.glRenderTargetFrameBuffer == 0)
+                {
+#if GLES
+                    GL.GenFramebuffers(1, ref this.glRenderTargetFrameBuffer);
+#else
+                    GL.GenFramebuffers(1, out this.glRenderTargetFrameBuffer);
+#endif
+                    GraphicsExtensions.CheckGLError();
+                }
+
+                GL.BindFramebuffer(GLFramebuffer, this.glRenderTargetFrameBuffer);
+                GraphicsExtensions.CheckGLError();
+                GL.FramebufferTexture2D(GLFramebuffer, GLColorAttachment0, TextureTarget.Texture2D, this.glTexture, 0);
+                GraphicsExtensions.CheckGLError();
+
+                // Reverted this change, as per @prollin's suggestion
+                GL.FramebufferRenderbuffer(GLFramebuffer, GLDepthAttachment, GLRenderbuffer, this.glDepthBuffer);
+                GL.FramebufferRenderbuffer(GLFramebuffer, GLStencilAttachment, GLRenderbuffer, this.glStencilBuffer);
+
             });
 #endif
 
@@ -297,10 +321,11 @@ namespace Microsoft.Xna.Framework.Graphics
 #elif OPENGL
 				GraphicsDevice.AddDisposeAction(() =>
 				{
-					if (this.glStencilBuffer != 0 && this.glStencilBuffer != this.glDepthBuffer)
+                    GL.DeleteFramebuffers(1, ref this.glRenderTargetFrameBuffer);
+                    if (this.glStencilBuffer != 0 && this.glStencilBuffer != this.glDepthBuffer)
 				    	GL.DeleteRenderbuffers(1, ref this.glStencilBuffer);
 					GL.DeleteRenderbuffers(1, ref this.glDepthBuffer);
-					GraphicsExtensions.CheckGLError();
+                   GraphicsExtensions.CheckGLError();
 				});
 #endif
             }
