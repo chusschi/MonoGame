@@ -15,6 +15,14 @@ namespace Microsoft.Xna.Framework.Input
 			foreach (OpenTK.Input.Key tkKey in values)
 				_map [tkKey] = _ToXna (tkKey);
 		}
+
+        public static OpenTK.Input.Key ToOpenTK(Keys k)
+        {
+            foreach(KeyValuePair<OpenTK.Input.Key,Keys> kv in _map)
+                if (kv.Value == k)
+                    return kv.Key;
+            return OpenTK.Input.Key.A;
+        }
 		
 		static Keys _ToXna (OpenTK.Input.Key key)
 		{

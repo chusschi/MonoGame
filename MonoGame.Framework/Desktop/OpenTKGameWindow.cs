@@ -175,6 +175,12 @@ namespace Microsoft.Xna.Framework
             if (keys.Contains(xnaKey)) keys.Remove(xnaKey);
         }
 
+        private void Keyboard_KeyUp(OpenTK.Input.Key key)
+        {
+            Keys xnaKey = KeyboardUtil.ToXna(key);
+            if (keys.Contains(xnaKey)) keys.Remove(xnaKey);
+        }
+
         private void Keyboard_KeyDown(object sender, OpenTK.Input.KeyboardKeyEventArgs e)
         {
             if (e.Key == OpenTK.Input.Key.F4 && keys.Contains(Keys.LeftAlt))
@@ -316,6 +322,14 @@ namespace Microsoft.Xna.Framework
         {
             OnTextInput(sender, new TextInputEventArgs(e.KeyChar));
         }
+
+        private void OnWindowFocused(object sender, EventArgs e)
+        {
+            if (window.Focused)
+            {
+                keys.Clear();
+            }
+        }
         
         #endregion
 
@@ -339,6 +353,7 @@ namespace Microsoft.Xna.Framework
 #endif
 
             window.KeyPress += OnKeyPress;
+            window.FocusedChanged += new EventHandler<EventArgs>(OnWindowFocused);
             
             // Set the window icon.
             var assembly = Assembly.GetEntryAssembly();
@@ -396,6 +411,8 @@ namespace Microsoft.Xna.Framework
             else
                 windowState = WindowState.Fullscreen;
         }
+
+
 
         internal void ChangeClientBounds(Rectangle clientBounds)
         {
