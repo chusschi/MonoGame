@@ -21,9 +21,13 @@ namespace Microsoft.Xna.Framework.Graphics
 		public OcclusionQuery (GraphicsDevice graphicsDevice)
 		{
 			this.GraphicsDevice = graphicsDevice;
+
 #if OPENGL
-			GL.GenQueries (1, out glQueryId);
-            GraphicsExtensions.CheckGLError();
+			Threading.BlockOnUIThread(() =>
+            {
+				GL.GenQueries (1, out glQueryId);
+            	GraphicsExtensions.CheckGLError();
+			});
 #elif DIRECTX
 #endif
 		}
