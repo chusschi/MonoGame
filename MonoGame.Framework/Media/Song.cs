@@ -90,6 +90,7 @@ namespace Microsoft.Xna.Framework.Media
             GetTopology();      
 #elif !WINDOWS_MEDIA_ENGINE && !WINDOWS_PHONE
             _sound = new SoundEffect(_name).CreateInstance();
+			_sound.soundBuffer.Recycled += OnFinishedPlaying;
 #endif
         }
 

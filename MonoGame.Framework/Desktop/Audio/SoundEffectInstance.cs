@@ -74,7 +74,7 @@ namespace Microsoft.Xna.Framework.Audio
                 }
             }
         }
-		private OALSoundBuffer soundBuffer;
+		internal OALSoundBuffer soundBuffer;
 		internal OpenALSoundController controller;
 
         private float _volume = 1.0f;
